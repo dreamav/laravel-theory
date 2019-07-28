@@ -18,31 +18,31 @@ class IndexController extends Controller
       // return view('default.template', $data);//key=>value
 		
 		
-		$view = view('default.template');
+		// $view = view('default.template');
 		
-		$view->with('title','Hello World 2');
-		$view->with('title2','Hello World 3');
-		$view->with('title3','Hello World 4');
+		// $view->with('title','Hello World 2');
+		// $view->with('title2','Hello World 3');
+		// $view->with('title3','Hello World 4');
 
-    return $view;
+  //   return $view;
 		
-		// if(view()->exists('default.template')) {
+		if(view()->exists('default.template')) {
 			
-			//view()->name('default.template','myview');
-			//return view()->of('myview')->withTitle('Hello World');
+			view()->name('default.template','myview');
+			return view()->of('myview')->withTitle('Hello World');
 			
 			
-			//$view = view('default.template',['title'=>'Hello World'])->render();
+			// $view = view('default.template',['title'=>'Hello World'])->render();
 			// echo view('default.template',['title'=>'Hello World'])->getPath();
-			//echo $view;
+			// echo $view;
 			// return;
 			
-			//$path = config('view.paths');
-			//return view()->file($path[0].'/default/template.php')->withTitle('Hello World');;
-			//return view('default.template')->withTitle('Hello World');
-		// }
+			// $path = config('view.paths');
+			// return view()->file($path[0].'/default/template.php')->withTitle('Hello World');;
+			// return view('default.template')->withTitle('Hello World');
+		}
 		
-		// abort(404);
+		abort(404);
 		
 		
 	}
