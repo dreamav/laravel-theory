@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'fetch' => PDO::FETCH_CLASS,
+    'fetch' => PDO::FETCH_CLASS, //PDO::FETCH_BOTH
 
     /*
     |--------------------------------------------------------------------------
@@ -98,7 +98,7 @@ return [
     | the migrations on disk haven't actually been run in the database.
     |
     */
-
+//table
     'migrations' => 'migrations',
 
     /*
