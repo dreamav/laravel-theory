@@ -19,16 +19,16 @@ Route::get('/article/{id}', ['as'=>'article',function ($id) {
    echo $id;
 }]);
 
-Route::get('/page/{cat}/{id}',function($var1) {
+Route::get('/page/{cat}/{id}',function($var1,$var2) {
 	
 	echo '<pre>';
 	
 	echo $var1;
-	//print_r($_ENV);
-	//echo config('app.locale');
-	//echo Config::set('app.locale','ru');
-	//echo Config::get('app.locale');
-	///echo env('APP_ENV');
+	print_r($_ENV);
+	echo config('app.locale');
+	echo Config::set('app.locale','ru');
+	echo Config::get('app.locale');
+	echo env('APP_ENV');
 	
 	echo '</pre>';
 	

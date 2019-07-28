@@ -26,9 +26,9 @@ class RouteServiceProvider extends ServiceProvider
     {
         //
         
-        //$router->pattern('id','[0-9]+');
+        $router->pattern('id','[0-9]+');
         
-        $router->patterns(['id'=>'[0-9]+','cat'=>'[A-Za-z]+']);
+        // $router->patterns(['id'=>'[0-9]+','cat'=>'[A-Za-z]+']);
         
         
         parent::boot($router);
