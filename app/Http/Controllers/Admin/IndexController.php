@@ -28,14 +28,14 @@ class IndexController extends Controller
 		
 		if(view()->exists('default.template')) {
 			
-			view()->name('default.template','myview');
-			return view()->of('myview')->withTitle('Hello World');
+			// view()->name('default.template','myview');
+			// return view()->of('myview')->withTitle('Hello World');
 			
 			
-			// $view = view('default.template',['title'=>'Hello World'])->render();
-			// echo view('default.template',['title'=>'Hello World'])->getPath();
-			// echo $view;
-			// return;
+			$view = view('default.template',['title'=>'Hello World'])->render();
+			echo view('default.template',['title'=>'Hello World'])->getPath();
+//			echo $view;
+			return;
 			
 			// $path = config('view.paths');
 			// return view()->file($path[0].'/default/template.php')->withTitle('Hello World');;
