@@ -16,7 +16,8 @@ class Core extends Controller
     
     //list materials
     public function getArticles() {
-		
+		print_r(Session::all());
+		return;
 	}
 	
 	 //material
