@@ -14,12 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-        Blade::directive('myDir',function($var) {
-        	
-        	return "<h1>New Directive - $var</h1>";
-        	
-        });
+    	//
     }
 
     /**
