@@ -14,15 +14,17 @@ class IndexController extends Controller
 
 //    	view('welcome');
 
-      $data = array('title' => 'Hello World', 'title2' => 'Hello world 3');
-      return view('default.template', $data);//key=>value
+      // $data = array('title' => 'Hello World', 'title2' => 'Hello world 3');
+      // return view('default.template', $data);//key=>value
 		
 		
-		//$view = view('default.template');
+		$view = view('default.template');
 		
-		//$view->with('title','Hello World 2');
-		//$view->with('title2','Hello World 3');
-		//$view->with('title3','Hello World 4');
+		$view->with('title','Hello World 2');
+		$view->with('title2','Hello World 3');
+		$view->with('title3','Hello World 4');
+
+    return $view;
 		
 		// if(view()->exists('default.template')) {
 			
