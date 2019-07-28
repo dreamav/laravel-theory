@@ -11,23 +11,16 @@
 |
 */
 
-Route::get('/', ['as'=>'home',function () {
-    return view('welcome');
-}]);
+Route::get('/', ['as'=>'home','uses'=>'Admin\IndexController@show']);
 
 Route::get('/about/{id}','FirstController@show');
 
 
 Route::get('/articles',['uses'=>'Admin\Core@getArticles','as'=>'articles']);
-Route::get('/article/{id}',['uses'=>'Admin\Core@getArticle','as'=>'article']);
 
 
-//list pages
-//Route::get('pages/add','Admin\CoreResource@add');
-//Route::resource('/pages','Admin\CoreResource',['except'=>['index','show']]);//pages.index  pages.store
+Route::get('/article/{page}',['middleware'=>'mymiddle:home','uses'=>'Admin\Core@getArticle','as'=>'article'])/*->middleware(['mymiddle'])*/;
 
-
-Route::controller('/pages','PagesController',['getCreate'=>'pages.create']);
 
 /*
 |--------------------------------------------------------------------------
@@ -42,4 +35,9 @@ Route::controller('/pages','PagesController',['getCreate'=>'pages.create']);
 
 Route::group(['middleware' => ['web']], function () {
     //
+    ////
+    
+    
+    ///
+    
 });
