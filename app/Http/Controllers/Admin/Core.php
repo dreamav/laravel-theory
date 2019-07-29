@@ -30,11 +30,8 @@ class Core extends Controller
     //list materials
     public function getArticles(Request $request) {
 		
-		$user = User::find(1);
-
-
-
-    dump($user->country);
+		//$user = User::find(1);
+		
 		
 		//$country = Country::find(1);
 		
@@ -62,6 +59,62 @@ class Core extends Controller
 		/*foreach($user->roles as $role) {
 			echo $role->name.'<br />';
 		}*/
+		
+		//$articles = Article::all();
+		
+		///$users = User::with('articles','roles')->get();
+		
+		
+		//$users = User::has('articles','>=','3')->get();
+		
+		//kod
+		
+		//kod
+		
+		//User
+		//$articles = Article::with('user')->get();
+		
+		//$articles->load('user');
+		
+		/*foreach($users as $user) {
+			dump($user);
+		}*/
+		
+		//dump($articles);
+		
+		
+		$user = User::find(1);
+		
+		/*$article = new Article([
+								
+								'name' => 'New Article',
+								'text' => 'Some text'
+								
+								]);*/
+		
+		$user->articles()->where('id',24)->update(['name'=>'NEW TEXT2222222']);
+		
+		/*$role = new Role(['name'=>'quest']);
+		$user->roles()->save($role);*/
+		
+		/*$user->articles()->saveMany([
+									
+									new Article(['name' => 'New Article1', 'text' => 'Some text1']),
+									new Article(['name' => 'New Article2', 'text' => 'Some text2']),
+									new Article(['name' => 'New Article3', 'text' => 'Some text3']),
+									
+									]);*/
+		
+		/*$user->articles()->create([
+								
+								'name' => 'New Article1',
+								'text' => 'Some text1'
+								
+								]);*/
+		
+		
+		$articles = Article::find(24);
+		dump($articles);
 		
 		return ;
 		
