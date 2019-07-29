@@ -20,28 +20,8 @@ class AboutController extends Controller
 		
 		if(view()->exists('default.about')) {	
 		
-	//$artiles = DB::select("SELECT * FROm `articles` WHERE id = :id",['id'=>2]);
-	
-	DB::insert("INSERT INTO `articles` (`name`,`text`) VALUES (?, ?)", ['test 1','TEXT']);
-	
-	//$result = DB::connection()->getPdo()->lastInsertId();
-	
-//$result = DB::update('UPDATE  `articles` SET `name` = ? WHERE `id` = ?', ["TEST 2",6]);
-//$result = DB::update('UPDATE  `articles` SET `name` = ? WHERE `id` = ?', ["TEST 3",6]);
-
-	//$result = DB::delete('DELETE FROM `articles` WHERE `id` = ?', [6]);
-			
-			//DB::statement('DROP table `articles`');
-			
-			$artiles = DB::select("SELECT * FROm `articles");
-			
-			//dump($result);
-			dump($artiles);	//dd()	
-			
-			foreach($artiles as $article) {
-				
-			}
-			return view('default.about')->withTitle('Hello World');			
+$page = DB::select("SELECT `name`,`text` FROm `pages` WHERE `alias` = :alias",['alias'=>'about']);
+			return view('default.about')->withPage($page[0])->withTitle('About our company');			
 			
 		}
 		abort(404);
