@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.2.15 on 2019-07-28.
+ * Generated for Laravel 5.2.45 on 2019-07-29.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -118,6 +118,17 @@ namespace Illuminate\Support\Facades {
         public static function basePath()
         {
             return \Illuminate\Foundation\Application::basePath();
+        }
+        
+        /**
+         * Get the path to the bootstrap directory.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function bootstrapPath()
+        {
+            return \Illuminate\Foundation\Application::bootstrapPath();
         }
         
         /**
@@ -246,10 +257,21 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Get the fully qualified path to the environment file.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function environmentFilePath()
+        {
+            return \Illuminate\Foundation\Application::environmentFilePath();
+        }
+        
+        /**
          * Get or check the current application environment.
          *
          * @param mixed
-         * @return string 
+         * @return string|bool 
          * @static 
          */ 
         public static function environment()
@@ -711,6 +733,18 @@ namespace Illuminate\Support\Facades {
         public static function setLocale($locale)
         {
             \Illuminate\Foundation\Application::setLocale($locale);
+        }
+        
+        /**
+         * Determine if application locale is the given locale.
+         *
+         * @param string $locale
+         * @return bool 
+         * @static 
+         */ 
+        public static function isLocale($locale)
+        {
+            return \Illuminate\Foundation\Application::isLocale($locale);
         }
         
         /**
@@ -1190,6 +1224,19 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Register the given command with the console application.
+         *
+         * @param \Symfony\Component\Console\Command\Command $command
+         * @return void 
+         * @static 
+         */ 
+        public static function registerCommand($command)
+        {
+            //Method inherited from \Illuminate\Foundation\Console\Kernel            
+            \App\Console\Kernel::registerCommand($command);
+        }
+        
+        /**
          * Run an Artisan console command by name.
          *
          * @param string $command
@@ -1648,12 +1695,12 @@ namespace Illuminate\Support\Facades {
          * Set the current user.
          *
          * @param \Illuminate\Contracts\Auth\Authenticatable $user
-         * @return void 
+         * @return $this 
          * @static 
          */ 
         public static function setUser($user)
         {
-            \Illuminate\Auth\SessionGuard::setUser($user);
+            return \Illuminate\Auth\SessionGuard::setUser($user);
         }
         
         /**
@@ -1743,6 +1790,18 @@ namespace Illuminate\Support\Facades {
         public static function guest()
         {
             return \Illuminate\Auth\SessionGuard::guest();
+        }
+        
+        /**
+         * Determine if the current user is authenticated.
+         *
+         * @return \App\User 
+         * @throws \Illuminate\Auth\AuthenticationException
+         * @static 
+         */ 
+        public static function authenticate()
+        {
+            return \Illuminate\Auth\SessionGuard::authenticate();
         }
          
     }
@@ -2965,6 +3024,21 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Run a select statement against the database and returns a generator.
+         *
+         * @param string $query
+         * @param array $bindings
+         * @param bool $useReadPdo
+         * @return \Generator 
+         * @static 
+         */ 
+        public static function cursor($query, $bindings = array(), $useReadPdo = true)
+        {
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::cursor($query, $bindings, $useReadPdo);
+        }
+        
+        /**
          * Run an insert statement against the database.
          *
          * @param string $query
@@ -3078,6 +3152,7 @@ namespace Illuminate\Support\Facades {
          * Start a new database transaction.
          *
          * @return void 
+         * @throws Exception
          * @static 
          */ 
         public static function beginTransaction()
@@ -3796,13 +3871,26 @@ namespace Illuminate\Support\Facades {
          * Get the contents of a file.
          *
          * @param string $path
+         * @param bool $lock
          * @return string 
          * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
          * @static 
          */ 
-        public static function get($path)
+        public static function get($path, $lock = false)
         {
-            return \Illuminate\Filesystem\Filesystem::get($path);
+            return \Illuminate\Filesystem\Filesystem::get($path, $lock);
+        }
+        
+        /**
+         * Get contents of a file with shared access.
+         *
+         * @param string $path
+         * @return string 
+         * @static 
+         */ 
+        public static function sharedGet($path)
+        {
+            return \Illuminate\Filesystem\Filesystem::sharedGet($path);
         }
         
         /**
@@ -3918,6 +4006,30 @@ namespace Illuminate\Support\Facades {
         public static function name($path)
         {
             return \Illuminate\Filesystem\Filesystem::name($path);
+        }
+        
+        /**
+         * Extract the trailing name component from a file path.
+         *
+         * @param string $path
+         * @return string 
+         * @static 
+         */ 
+        public static function basename($path)
+        {
+            return \Illuminate\Filesystem\Filesystem::basename($path);
+        }
+        
+        /**
+         * Extract the parent directory from a file path.
+         *
+         * @param string $path
+         * @return string 
+         * @static 
+         */ 
+        public static function dirname($path)
+        {
+            return \Illuminate\Filesystem\Filesystem::dirname($path);
         }
         
         /**
@@ -4045,12 +4157,13 @@ namespace Illuminate\Support\Facades {
          * Get all of the files from the given directory (recursive).
          *
          * @param string $directory
+         * @param bool $hidden
          * @return array 
          * @static 
          */ 
-        public static function allFiles($directory)
+        public static function allFiles($directory, $hidden = false)
         {
-            return \Illuminate\Filesystem\Filesystem::allFiles($directory);
+            return \Illuminate\Filesystem\Filesystem::allFiles($directory, $hidden);
         }
         
         /**
@@ -4078,6 +4191,20 @@ namespace Illuminate\Support\Facades {
         public static function makeDirectory($path, $mode = 493, $recursive = false, $force = false)
         {
             return \Illuminate\Filesystem\Filesystem::makeDirectory($path, $mode, $recursive, $force);
+        }
+        
+        /**
+         * Move a directory.
+         *
+         * @param string $from
+         * @param string $to
+         * @param bool $overwrite
+         * @return bool 
+         * @static 
+         */ 
+        public static function moveDirectory($from, $to, $overwrite = false)
+        {
+            return \Illuminate\Filesystem\Filesystem::moveDirectory($from, $to, $overwrite);
         }
         
         /**
@@ -4292,7 +4419,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Get a guard instance for the given user.
+         * Get a gate instance for the given user.
          *
          * @param \Illuminate\Contracts\Auth\Authenticatable|mixed $user
          * @return static 
@@ -4605,7 +4732,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $message The log message
          * @param array $context The log context
-         * @return Boolean Whether the record has been processed
+         * @return bool Whether the record has been processed
          * @static 
          */ 
         public static function debug($message, $context = array())
@@ -4618,7 +4745,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $message The log message
          * @param array $context The log context
-         * @return Boolean Whether the record has been processed
+         * @return bool Whether the record has been processed
          * @static 
          */ 
         public static function info($message, $context = array())
@@ -4631,7 +4758,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $message The log message
          * @param array $context The log context
-         * @return Boolean Whether the record has been processed
+         * @return bool Whether the record has been processed
          * @static 
          */ 
         public static function notice($message, $context = array())
@@ -4644,7 +4771,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $message The log message
          * @param array $context The log context
-         * @return Boolean Whether the record has been processed
+         * @return bool Whether the record has been processed
          * @static 
          */ 
         public static function warning($message, $context = array())
@@ -4657,7 +4784,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $message The log message
          * @param array $context The log context
-         * @return Boolean Whether the record has been processed
+         * @return bool Whether the record has been processed
          * @static 
          */ 
         public static function error($message, $context = array())
@@ -4670,7 +4797,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $message The log message
          * @param array $context The log context
-         * @return Boolean Whether the record has been processed
+         * @return bool Whether the record has been processed
          * @static 
          */ 
         public static function critical($message, $context = array())
@@ -4683,7 +4810,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $message The log message
          * @param array $context The log context
-         * @return Boolean Whether the record has been processed
+         * @return bool Whether the record has been processed
          * @static 
          */ 
         public static function alert($message, $context = array())
@@ -4696,7 +4823,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $message The log message
          * @param array $context The log context
-         * @return Boolean Whether the record has been processed
+         * @return bool Whether the record has been processed
          * @static 
          */ 
         public static function emergency($message, $context = array())
@@ -5108,6 +5235,18 @@ namespace Illuminate\Support\Facades {
     class Queue {
         
         /**
+         * Register an event listener for the before job event.
+         *
+         * @param mixed $callback
+         * @return void 
+         * @static 
+         */ 
+        public static function before($callback)
+        {
+            \Illuminate\Queue\QueueManager::before($callback);
+        }
+        
+        /**
          * Register an event listener for the after job event.
          *
          * @param mixed $callback
@@ -5117,6 +5256,18 @@ namespace Illuminate\Support\Facades {
         public static function after($callback)
         {
             \Illuminate\Queue\QueueManager::after($callback);
+        }
+        
+        /**
+         * Register an event listener for the exception occurred job event.
+         *
+         * @param mixed $callback
+         * @return void 
+         * @static 
+         */ 
+        public static function exceptionOccurred($callback)
+        {
+            \Illuminate\Queue\QueueManager::exceptionOccurred($callback);
         }
         
         /**
@@ -5367,16 +5518,16 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Set the encrypter instance.
+         * Set the encrypter implementation.
          *
-         * @param \Illuminate\Contracts\Encryption\Encrypter $crypt
+         * @param \Illuminate\Contracts\Encryption\Encrypter $encrypter
          * @return void 
          * @static 
          */ 
-        public static function setEncrypter($crypt)
+        public static function setEncrypter($encrypter)
         {
             //Method inherited from \Illuminate\Queue\Queue            
-            \Illuminate\Queue\SyncQueue::setEncrypter($crypt);
+            \Illuminate\Queue\SyncQueue::setEncrypter($encrypter);
         }
          
     }
@@ -5618,6 +5769,18 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Get the full URL for the request with the added query string parameters.
+         *
+         * @param array $query
+         * @return string 
+         * @static 
+         */ 
+        public static function fullUrlWithQuery($query)
+        {
+            return \Illuminate\Http\Request::fullUrlWithQuery($query);
+        }
+        
+        /**
          * Get the current path info for the request.
          *
          * @return string 
@@ -5791,7 +5954,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Get a subset of the items from the input data.
+         * Get a subset containing the provided keys with values from the input data.
          *
          * @param array|mixed $keys
          * @return array 
@@ -5812,6 +5975,18 @@ namespace Illuminate\Support\Facades {
         public static function except($keys)
         {
             return \Illuminate\Http\Request::except($keys);
+        }
+        
+        /**
+         * Intersect an array of items with the input data.
+         *
+         * @param array|mixed $keys
+         * @return array 
+         * @static 
+         */ 
+        public static function intersect($keys)
+        {
+            return \Illuminate\Http\Request::intersect($keys);
         }
         
         /**
@@ -5868,7 +6043,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $key
          * @param mixed $default
-         * @return \Symfony\Component\HttpFoundation\File\UploadedFile|array|null 
+         * @return \Illuminate\Http\UploadedFile|array|null 
          * @static 
          */ 
         public static function file($key = null, $default = null)
@@ -5886,6 +6061,18 @@ namespace Illuminate\Support\Facades {
         public static function hasFile($key)
         {
             return \Illuminate\Http\Request::hasFile($key);
+        }
+        
+        /**
+         * Determine if a header is set on the request.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */ 
+        public static function hasHeader($key)
+        {
+            return \Illuminate\Http\Request::hasHeader($key);
         }
         
         /**
@@ -6400,7 +6587,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Gets the list of trusted proxies.
          *
-         * @return array An array of trusted proxies.
+         * @return array An array of trusted proxies
          * @static 
          */ 
         public static function getTrustedProxies()
@@ -6426,7 +6613,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Gets the list of trusted host patterns.
          *
-         * @return array An array of trusted host patterns.
+         * @return array An array of trusted host patterns
          * @static 
          */ 
         public static function getTrustedHosts()
@@ -6529,7 +6716,7 @@ namespace Illuminate\Support\Facades {
          * Order of precedence: PATH (routing placeholders or custom attributes), GET, BODY
          *
          * @param string $key the key
-         * @param mixed $default the default value
+         * @param mixed $default the default value if the parameter key does not exist
          * @return mixed 
          * @static 
          */ 
@@ -7012,7 +7199,7 @@ namespace Illuminate\Support\Facades {
          * Here is the process to determine the format:
          * 
          *  * format defined by the user (with setRequestFormat())
-         *  * _format request parameter
+         *  * _format request attribute
          *  * $default
          *
          * @param string $default The default format
@@ -7028,7 +7215,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Sets the request format.
          *
-         * @param string $format The request format.
+         * @param string $format The request format
          * @static 
          */ 
         public static function setRequestFormat($format)
@@ -7100,7 +7287,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Checks if the request method is of specified type.
          *
-         * @param string $method Uppercase request method (GET, POST etc).
+         * @param string $method Uppercase request method (GET, POST etc)
          * @return bool 
          * @static 
          */ 
@@ -7126,7 +7313,7 @@ namespace Illuminate\Support\Facades {
          * Returns the request body content.
          *
          * @param bool $asResource If true, a resource will be returned
-         * @return string|resource The request body content or a resource to read the body stream.
+         * @return string|resource The request body content or a resource to read the body stream
          * @throws \LogicException
          * @static 
          */ 
@@ -7356,6 +7543,19 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Return the raw contents of a binary file.
+         *
+         * @param \SplFileInfo|string $file
+         * @param array $headers
+         * @return \Symfony\Component\HttpFoundation\BinaryFileResponse 
+         * @static 
+         */ 
+        public static function file($file, $headers = array())
+        {
+            return \Illuminate\Routing\ResponseFactory::file($file, $headers);
+        }
+        
+        /**
          * Create a new redirect response to the given path.
          *
          * @param string $path
@@ -7453,6 +7653,16 @@ namespace Illuminate\Support\Facades {
         public static function hasMacro($name)
         {
             return \Illuminate\Routing\ResponseFactory::hasMacro($name);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function myRes($value)
+        {
+            return \Illuminate\Routing\ResponseFactory::myRes($value);
         }
          
     }
@@ -7590,6 +7800,29 @@ namespace Illuminate\Support\Facades {
         public static function controller($uri, $controller, $names = array())
         {
             \Illuminate\Routing\Router::controller($uri, $controller, $names);
+        }
+        
+        /**
+         * Set the unmapped global resource parameters to singular.
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function singularResourceParameters()
+        {
+            \Illuminate\Routing\Router::singularResourceParameters();
+        }
+        
+        /**
+         * Set the global resource parameter mapping.
+         *
+         * @param array $parameters
+         * @return void 
+         * @static 
+         */ 
+        public static function resourceParameters($parameters = array())
+        {
+            \Illuminate\Routing\Router::resourceParameters($parameters);
         }
         
         /**
@@ -7776,6 +8009,36 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Add a middleware to the beginning of a middleware group.
+         * 
+         * If the middleware is already in the group, it will not be added again.
+         *
+         * @param string $group
+         * @param string $middleware
+         * @return $this 
+         * @static 
+         */ 
+        public static function prependMiddlewareToGroup($group, $middleware)
+        {
+            return \Illuminate\Routing\Router::prependMiddlewareToGroup($group, $middleware);
+        }
+        
+        /**
+         * Add a middleware to the end of a middleware group.
+         * 
+         * If the middleware is already in the group, it will not be added again.
+         *
+         * @param string $group
+         * @param string $middleware
+         * @return $this 
+         * @static 
+         */ 
+        public static function pushMiddlewareToGroup($group, $middleware)
+        {
+            return \Illuminate\Routing\Router::pushMiddlewareToGroup($group, $middleware);
+        }
+        
+        /**
          * Register a model binder for a wildcard.
          *
          * @param string $key
@@ -7934,7 +8197,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Alias for the "currentRouteNamed" method.
+         * Alias for the "currentRouteName" method.
          *
          * @param mixed  string
          * @return bool 
@@ -8201,6 +8464,30 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Enable foreign key constraints.
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function enableForeignKeyConstraints()
+        {
+            //Method inherited from \Illuminate\Database\Schema\Builder            
+            return \Illuminate\Database\Schema\MySqlBuilder::enableForeignKeyConstraints();
+        }
+        
+        /**
+         * Disable foreign key constraints.
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function disableForeignKeyConstraints()
+        {
+            //Method inherited from \Illuminate\Database\Schema\Builder            
+            return \Illuminate\Database\Schema\MySqlBuilder::disableForeignKeyConstraints();
+        }
+        
+        /**
          * Get the database connection instance.
          *
          * @return \Illuminate\Database\Connection 
@@ -8318,7 +8605,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Starts the session storage.
          *
-         * @return bool True if session started.
+         * @return bool True if session started
          * @throws \RuntimeException If session fails to start.
          * @static 
          */ 
@@ -8330,7 +8617,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Returns the session ID.
          *
-         * @return string The session ID.
+         * @return string The session ID
          * @static 
          */ 
         public static function getId()
@@ -8364,7 +8651,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Returns the session name.
          *
-         * @return mixed The session name.
+         * @return mixed The session name
          * @static 
          */ 
         public static function getName()
@@ -8393,7 +8680,7 @@ namespace Illuminate\Support\Facades {
          *                      will leave the system settings unchanged, 0 sets the cookie
          *                      to expire with browser session. Time is in seconds, and is
          *                      not a Unix timestamp.
-         * @return bool True if session invalidated, false if error.
+         * @return bool True if session invalidated, false if error
          * @static 
          */ 
         public static function invalidate($lifetime = null)
@@ -8405,12 +8692,12 @@ namespace Illuminate\Support\Facades {
          * Migrates the current session to a new session id while maintaining all
          * session attributes.
          *
-         * @param bool $destroy Whether to delete the old session or leave it to garbage collection.
+         * @param bool $destroy Whether to delete the old session or leave it to garbage collection
          * @param int $lifetime Sets the cookie lifetime for the session cookie. A null value
          *                       will leave the system settings unchanged, 0 sets the cookie
          *                       to expire with browser session. Time is in seconds, and is
          *                       not a Unix timestamp.
-         * @return bool True if session migrated, false if error.
+         * @return bool True if session migrated, false if error
          * @static 
          */ 
         public static function migrate($destroy = false, $lifetime = null)
@@ -8471,7 +8758,7 @@ namespace Illuminate\Support\Facades {
          * Returns an attribute.
          *
          * @param string $name The attribute name
-         * @param mixed $default The default value if not found.
+         * @param mixed $default The default value if not found
          * @return mixed 
          * @static 
          */ 
@@ -8554,6 +8841,32 @@ namespace Illuminate\Support\Facades {
         public static function push($key, $value)
         {
             \Illuminate\Session\Store::push($key, $value);
+        }
+        
+        /**
+         * Increment the value of an item in the session.
+         *
+         * @param string $key
+         * @param int $amount
+         * @return mixed 
+         * @static 
+         */ 
+        public static function increment($key, $amount = 1)
+        {
+            return \Illuminate\Session\Store::increment($key, $amount);
+        }
+        
+        /**
+         * Decrement the value of an item in the session.
+         *
+         * @param string $key
+         * @param int $amount
+         * @return int 
+         * @static 
+         */ 
+        public static function decrement($key, $amount = 1)
+        {
+            return \Illuminate\Session\Store::decrement($key, $amount);
         }
         
         /**
@@ -9256,12 +9569,13 @@ namespace Illuminate\Support\Facades {
         /**
          * Get the URL for the previous request.
          *
+         * @param mixed $fallback
          * @return string 
          * @static 
          */ 
-        public static function previous()
+        public static function previous($fallback = false)
         {
-            return \Illuminate\Routing\UrlGenerator::previous();
+            return \Illuminate\Routing\UrlGenerator::previous($fallback);
         }
         
         /**
@@ -9849,6 +10163,44 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Start injecting content into a push section.
+         *
+         * @param string $section
+         * @param string $content
+         * @return void 
+         * @static 
+         */ 
+        public static function startPush($section, $content = '')
+        {
+            \Illuminate\View\Factory::startPush($section, $content);
+        }
+        
+        /**
+         * Stop injecting content into a push section.
+         *
+         * @return string 
+         * @throws \InvalidArgumentException
+         * @static 
+         */ 
+        public static function stopPush()
+        {
+            return \Illuminate\View\Factory::stopPush();
+        }
+        
+        /**
+         * Get the string contents of a push section.
+         *
+         * @param string $section
+         * @param string $default
+         * @return string 
+         * @static 
+         */ 
+        public static function yieldPushContent($section, $default = '')
+        {
+            return \Illuminate\View\Factory::yieldPushContent($section, $default);
+        }
+        
+        /**
          * Flush all of the section contents.
          *
          * @return void 
@@ -10168,11 +10520,22 @@ namespace  {
             }
          
             /**
+             * Get an array of global scopes that were removed from the query.
+             *
+             * @return array 
+             * @static 
+             */ 
+            public static function removedScopes()
+            {    
+                return \Illuminate\Database\Eloquent\Builder::removedScopes();
+            }
+         
+            /**
              * Find a model by its primary key.
              *
              * @param mixed $id
              * @param array $columns
-             * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection|null 
+             * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection|static[]|static|null 
              * @static 
              */ 
             public static function find($id, $columns = array())
@@ -10181,7 +10544,7 @@ namespace  {
             }
          
             /**
-             * Find a model by its primary key.
+             * Find multiple models by their primary keys.
              *
              * @param array $ids
              * @param array $columns
@@ -10205,6 +10568,56 @@ namespace  {
             public static function findOrFail($id, $columns = array())
             {    
                 return \Illuminate\Database\Eloquent\Builder::findOrFail($id, $columns);
+            }
+         
+            /**
+             * Find a model by its primary key or return fresh model instance.
+             *
+             * @param mixed $id
+             * @param array $columns
+             * @return \Illuminate\Database\Eloquent\Model 
+             * @static 
+             */ 
+            public static function findOrNew($id, $columns = array())
+            {    
+                return \Illuminate\Database\Eloquent\Builder::findOrNew($id, $columns);
+            }
+         
+            /**
+             * Get the first record matching the attributes or instantiate it.
+             *
+             * @param array $attributes
+             * @return \Illuminate\Database\Eloquent\Model 
+             * @static 
+             */ 
+            public static function firstOrNew($attributes)
+            {    
+                return \Illuminate\Database\Eloquent\Builder::firstOrNew($attributes);
+            }
+         
+            /**
+             * Get the first record matching the attributes or create it.
+             *
+             * @param array $attributes
+             * @return \Illuminate\Database\Eloquent\Model 
+             * @static 
+             */ 
+            public static function firstOrCreate($attributes)
+            {    
+                return \Illuminate\Database\Eloquent\Builder::firstOrCreate($attributes);
+            }
+         
+            /**
+             * Create or update a record matching the attributes, and fill it with values.
+             *
+             * @param array $attributes
+             * @param array $values
+             * @return \Illuminate\Database\Eloquent\Model 
+             * @static 
+             */ 
+            public static function updateOrCreate($attributes, $values = array())
+            {    
+                return \Illuminate\Database\Eloquent\Builder::updateOrCreate($attributes, $values);
             }
          
             /**
@@ -10257,6 +10670,17 @@ namespace  {
             }
          
             /**
+             * Get a generator for the given query.
+             *
+             * @return \Generator 
+             * @static 
+             */ 
+            public static function cursor()
+            {    
+                return \Illuminate\Database\Eloquent\Builder::cursor();
+            }
+         
+            /**
              * Chunk the results of the query.
              *
              * @param int $count
@@ -10267,6 +10691,20 @@ namespace  {
             public static function chunk($count, $callback)
             {    
                 return \Illuminate\Database\Eloquent\Builder::chunk($count, $callback);
+            }
+         
+            /**
+             * Chunk the results of a query by comparing numeric IDs.
+             *
+             * @param int $count
+             * @param callable $callback
+             * @param string $column
+             * @return bool 
+             * @static 
+             */ 
+            public static function chunkById($count, $callback, $column = 'id')
+            {    
+                return \Illuminate\Database\Eloquent\Builder::chunkById($count, $callback, $column);
             }
          
             /**
@@ -10331,12 +10769,13 @@ namespace  {
              * @param int $perPage
              * @param array $columns
              * @param string $pageName
+             * @param int|null $page
              * @return \Illuminate\Contracts\Pagination\Paginator 
              * @static 
              */ 
-            public static function simplePaginate($perPage = null, $columns = array(), $pageName = 'page')
+            public static function simplePaginate($perPage = null, $columns = array(), $pageName = 'page', $page = null)
             {    
-                return \Illuminate\Database\Eloquent\Builder::simplePaginate($perPage, $columns, $pageName);
+                return \Illuminate\Database\Eloquent\Builder::simplePaginate($perPage, $columns, $pageName, $page);
             }
          
             /**
@@ -10373,6 +10812,19 @@ namespace  {
             public static function eagerLoadRelations($models)
             {    
                 return \Illuminate\Database\Eloquent\Builder::eagerLoadRelations($models);
+            }
+         
+            /**
+             * Apply the callback's query changes if the given "value" is true.
+             *
+             * @param bool $value
+             * @param \Closure $callback
+             * @return $this 
+             * @static 
+             */ 
+            public static function when($value, $callback)
+            {    
+                return \Illuminate\Database\Eloquent\Builder::when($value, $callback);
             }
          
             /**
@@ -10492,6 +10944,54 @@ namespace  {
             }
          
             /**
+             * Merge the constraints from a relation query to the current query.
+             *
+             * @param \Illuminate\Database\Eloquent\Builder $relation
+             * @return \Illuminate\Database\Eloquent\Builder|static 
+             * @static 
+             */ 
+            public static function mergeModelDefinedRelationConstraints($relation)
+            {    
+                return \Illuminate\Database\Eloquent\Builder::mergeModelDefinedRelationConstraints($relation);
+            }
+         
+            /**
+             * Prevent the specified relations from being eager loaded.
+             *
+             * @param mixed $relations
+             * @return $this 
+             * @static 
+             */ 
+            public static function without($relations)
+            {    
+                return \Illuminate\Database\Eloquent\Builder::without($relations);
+            }
+         
+            /**
+             * Add subselect queries to count the relations.
+             *
+             * @param mixed $relations
+             * @return $this 
+             * @static 
+             */ 
+            public static function withCount($relations)
+            {    
+                return \Illuminate\Database\Eloquent\Builder::withCount($relations);
+            }
+         
+            /**
+             * Add the given scopes to the current builder instance.
+             *
+             * @param array $scopes
+             * @return mixed 
+             * @static 
+             */ 
+            public static function scopes($scopes)
+            {    
+                return \Illuminate\Database\Eloquent\Builder::scopes($scopes);
+            }
+         
+            /**
              * Apply the scopes to the Eloquent builder instance and return it.
              *
              * @return \Illuminate\Database\Eloquent\Builder|static 
@@ -10505,7 +11005,7 @@ namespace  {
             /**
              * Get the underlying query builder instance.
              *
-             * @return \Illuminate\Database\Query\Builder|static 
+             * @return \Illuminate\Database\Query\Builder 
              * @static 
              */ 
             public static function getQuery()
@@ -10772,6 +11272,50 @@ namespace  {
             public static function rightJoinWhere($table, $one, $operator, $two)
             {    
                 return \Illuminate\Database\Query\Builder::rightJoinWhere($table, $one, $operator, $two);
+            }
+         
+            /**
+             * Add a "cross join" clause to the query.
+             *
+             * @param string $table
+             * @param string $first
+             * @param string $operator
+             * @param string $second
+             * @return \Illuminate\Database\Query\Builder|static 
+             * @static 
+             */ 
+            public static function crossJoin($table, $first = null, $operator = null, $second = null)
+            {    
+                return \Illuminate\Database\Query\Builder::crossJoin($table, $first, $operator, $second);
+            }
+         
+            /**
+             * Add a "where" clause comparing two columns to the query.
+             *
+             * @param string|array $first
+             * @param string|null $operator
+             * @param string|null $second
+             * @param string|null $boolean
+             * @return \Illuminate\Database\Query\Builder|static 
+             * @static 
+             */ 
+            public static function whereColumn($first, $operator = null, $second = null, $boolean = 'and')
+            {    
+                return \Illuminate\Database\Query\Builder::whereColumn($first, $operator, $second, $boolean);
+            }
+         
+            /**
+             * Add an "or where" clause comparing two columns to the query.
+             *
+             * @param string|array $first
+             * @param string|null $operator
+             * @param string|null $second
+             * @return \Illuminate\Database\Query\Builder|static 
+             * @static 
+             */ 
+            public static function orWhereColumn($first, $operator = null, $second = null)
+            {    
+                return \Illuminate\Database\Query\Builder::orWhereColumn($first, $operator, $second);
             }
          
             /**
@@ -11095,6 +11639,35 @@ namespace  {
             }
          
             /**
+             * Add a "where time" statement to the query.
+             *
+             * @param string $column
+             * @param string $operator
+             * @param int $value
+             * @param string $boolean
+             * @return \Illuminate\Database\Query\Builder|static 
+             * @static 
+             */ 
+            public static function whereTime($column, $operator, $value, $boolean = 'and')
+            {    
+                return \Illuminate\Database\Query\Builder::whereTime($column, $operator, $value, $boolean);
+            }
+         
+            /**
+             * Add an "or where time" statement to the query.
+             *
+             * @param string $column
+             * @param string $operator
+             * @param int $value
+             * @return \Illuminate\Database\Query\Builder|static 
+             * @static 
+             */ 
+            public static function orWhereTime($column, $operator, $value)
+            {    
+                return \Illuminate\Database\Query\Builder::orWhereTime($column, $operator, $value);
+            }
+         
+            /**
              * Add a "where day" statement to the query.
              *
              * @param string $column
@@ -11258,6 +11831,18 @@ namespace  {
             }
          
             /**
+             * Put the query's results in random order.
+             *
+             * @param string $seed
+             * @return $this 
+             * @static 
+             */ 
+            public static function inRandomOrder($seed = '')
+            {    
+                return \Illuminate\Database\Query\Builder::inRandomOrder($seed);
+            }
+         
+            /**
              * Add a raw "order by" clause to the query.
              *
              * @param string $sql
@@ -11329,6 +11914,20 @@ namespace  {
             public static function forPage($page, $perPage = 15)
             {    
                 return \Illuminate\Database\Query\Builder::forPage($page, $perPage);
+            }
+         
+            /**
+             * Constrain the query to the next "page" of results after a given ID.
+             *
+             * @param int $perPage
+             * @param int $lastId
+             * @param string $column
+             * @return \Illuminate\Database\Query\Builder|static 
+             * @static 
+             */ 
+            public static function forPageAfterId($perPage = 15, $lastId = 0, $column = 'id')
+            {    
+                return \Illuminate\Database\Query\Builder::forPageAfterId($perPage, $lastId, $column);
             }
          
             /**
@@ -11453,7 +12052,7 @@ namespace  {
              * Retrieve the minimum value of a given column.
              *
              * @param string $column
-             * @return float|int 
+             * @return mixed 
              * @static 
              */ 
             public static function min($column)
@@ -11465,7 +12064,7 @@ namespace  {
              * Retrieve the maximum value of a given column.
              *
              * @param string $column
-             * @return float|int 
+             * @return mixed 
              * @static 
              */ 
             public static function max($column)
@@ -11477,7 +12076,7 @@ namespace  {
              * Retrieve the sum of the values of a given column.
              *
              * @param string $column
-             * @return float|int 
+             * @return mixed 
              * @static 
              */ 
             public static function sum($column)
@@ -11489,7 +12088,7 @@ namespace  {
              * Retrieve the average of the values of a given column.
              *
              * @param string $column
-             * @return float|int 
+             * @return mixed 
              * @static 
              */ 
             public static function avg($column)
@@ -11501,7 +12100,7 @@ namespace  {
              * Alias for the "avg" method.
              *
              * @param string $column
-             * @return float|int 
+             * @return mixed 
              * @static 
              */ 
             public static function average($column)
@@ -11514,12 +12113,25 @@ namespace  {
              *
              * @param string $function
              * @param array $columns
-             * @return float|int 
+             * @return mixed 
              * @static 
              */ 
             public static function aggregate($function, $columns = array())
             {    
                 return \Illuminate\Database\Query\Builder::aggregate($function, $columns);
+            }
+         
+            /**
+             * Execute a numeric aggregate function on the database.
+             *
+             * @param string $function
+             * @param array $columns
+             * @return float|int 
+             * @static 
+             */ 
+            public static function numericAggregate($function, $columns = array())
+            {    
+                return \Illuminate\Database\Query\Builder::numericAggregate($function, $columns);
             }
          
             /**
@@ -11545,6 +12157,19 @@ namespace  {
             public static function insertGetId($values, $sequence = null)
             {    
                 return \Illuminate\Database\Query\Builder::insertGetId($values, $sequence);
+            }
+         
+            /**
+             * Insert or update a record matching the attributes, and fill it with values.
+             *
+             * @param array $attributes
+             * @param array $values
+             * @return bool 
+             * @static 
+             */ 
+            public static function updateOrInsert($attributes, $values = array())
+            {    
+                return \Illuminate\Database\Query\Builder::updateOrInsert($attributes, $values);
             }
          
             /**

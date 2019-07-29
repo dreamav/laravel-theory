@@ -9,6 +9,9 @@ use App\Http\Controllers\Controller;
 
 use DB;
 use App\Article;
+use App\User;
+use App\Country;
+use App\Role;
 
 class Core extends Controller
 {
@@ -27,66 +30,38 @@ class Core extends Controller
     //list materials
     public function getArticles(Request $request) {
 		
-		//$articles = DB::table('articles')->get();
-	
+		$user = User::find(1);
+
+
+
+    dump($user->country);
 		
-		/*Article::create(
-						[
-							'name'=>'Hello world',
-							'text'=>'Some Text'
-						]
-						);*/
+		//$country = Country::find(1);
 		
-		
-		/*$article = Article::firstOrCreate([
-								
-										'name'=>'Hello world1',
-										'text'=>'Some Text'
-										
-										]);*/
-		
-		/*$article = Article::firstOrNew([
-							
-										'name'=>'Hello world2',
-										'text'=>'Some Text'
-										
-										]);
-		$article->save();						*/		
-										
+		///$article = Article::all();
+		//$country = $user->country;
 		
 		
-		//$article = Article::find(35);
+		///$articles = $user->articles()->where('id','>',24)->get();
 		
-		//$article->delete();
-		
-		//Article::destroy([33,32]);
-		
-		//Article::where('id','>','3')->delete();
-		
-		
-		/*$article = Article::find(3);
-		
-		$article->delete();*/
-		
-		
-		//$articles = Article::onlyTrashed()->restore();
+		//$article = Article::find(24);
 		
 		/*foreach($articles as $article) {
-			if($article->trashed()) {
-				echo $article->id.' Удалена<br />';
-				$article->restore();
-			}
-			else {
-				echo $article->id.' Не удалена<br />';
-			}
+			echo $article->name.'<br>';
 		}*/
 		
-		//$article = Article::find(3);
+		//$user = User::find(1);
 		
-		//$article->forceDelete();
 		
-		//dump($articles);
-		//dump($article);
+		//$role = $user->roles()->where('roles.id',2)->first();
+		
+		//$role = Role::find(1);
+		
+		//dump($role->users);
+		
+		/*foreach($user->roles as $role) {
+			echo $role->name.'<br />';
+		}*/
 		
 		return ;
 		
