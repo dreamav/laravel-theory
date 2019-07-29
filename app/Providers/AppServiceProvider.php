@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Blade;
 use Response;
+use DB;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,6 +23,13 @@ class AppServiceProvider extends ServiceProvider
     		return Response::make($value);
     		
     	});
+    	
+    	DB::listen(function ($query) {
+    		
+    		dump($query->sql);
+    		dump($query->bindings);
+    		
+    	}); 
     	
     	
     }
