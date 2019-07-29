@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ChangeArticlesTable extends Migration
+class ChangeArticleTableSoft extends Migration
 {
     /**
      * Run the migrations.
@@ -12,19 +12,10 @@ class ChangeArticlesTable extends Migration
      */
     public function up()
     {
-        
-        if(Schema::hasTable('articles')) {
-				Schema::table('articles', function (Blueprint $table) {
-	            //
-	            
-//	            if(!Schema::hasColumn('alias')) {
-					 $table->string('alias',100)->default('default');
-//				}
-
-	            
-	        });
-		}
-        
+        Schema::table('articles', function (Blueprint $table) {
+            //
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -36,7 +27,7 @@ class ChangeArticlesTable extends Migration
     {
         Schema::table('articles', function (Blueprint $table) {
             //
-            $table->dropColumn('alias');
+            $table->dropColumn('deleted_at');
         });
     }
 }

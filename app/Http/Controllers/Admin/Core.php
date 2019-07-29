@@ -28,53 +28,65 @@ class Core extends Controller
     public function getArticles(Request $request) {
 		
 		//$articles = DB::table('articles')->get();
+	
 		
-		//$articles = Article::all();
-		
-		$articles = Article::where('id', '>', 3)->orderBy('name')->take(2)->get();
-		
-		/*Article::chunk(2, function($articles) {
-			
-			
-		});*/
-		
-		//$article = Article::find(1);
-		
-		//$article = Article::where('id',1)->first();
-		
-		//$articles = Article::find([1,2,3]);
-		
-		//$article = Article::findOrFail(100);
-		//$article = Article::where('id',100)->firstOrFail();
+		/*Article::create(
+						[
+							'name'=>'Hello world',
+							'text'=>'Some Text'
+						]
+						);*/
 		
 		
-		/*$article = new Article;
+		/*$article = Article::firstOrCreate([
+								
+										'name'=>'Hello world1',
+										'text'=>'Some Text'
+										
+										]);*/
 		
-		$article->name = 'New Article';
-		$article->text = 'New Text';*/
+		/*$article = Article::firstOrNew([
+							
+										'name'=>'Hello world2',
+										'text'=>'Some Text'
+										
+										]);
+		$article->save();						*/		
+										
 		
-		$article = Article::find(24);
 		
-		$article->name = 'New Name 2';
-		$article->text = 'New Text 2';
+		//$article = Article::find(35);
 		
-		$article->save();
+		//$article->delete();
+		
+		//Article::destroy([33,32]);
+		
+		//Article::where('id','>','3')->delete();
 		
 		
-		//$article->name = 'New Article';
-		//$article->text = 'New Text';
+		/*$article = Article::find(3);
 		
-		//$article->save();
+		$article->delete();*/
 		
+		
+		//$articles = Article::onlyTrashed()->restore();
 		
 		/*foreach($articles as $article) {
-			echo $article->text.'<br />';
+			if($article->trashed()) {
+				echo $article->id.' Удалена<br />';
+				$article->restore();
+			}
+			else {
+				echo $article->id.' Не удалена<br />';
+			}
 		}*/
-		//echo $article->text;
 		
-		$articles = Article::all();
+		//$article = Article::find(3);
 		
-		dump($articles);
+		//$article->forceDelete();
+		
+		//dump($articles);
+		//dump($article);
 		
 		return ;
 		
