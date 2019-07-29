@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use DB;
+use App\Article;
 
 class Core extends Controller
 {
@@ -24,91 +25,58 @@ class Core extends Controller
 	}
     
     //list materials
-    public function getArticles() {
+    public function getArticles(Request $request) {
 		
 		//$articles = DB::table('articles')->get();
-		//$articles = DB::table('articles')->first();
-		//$articles = DB::table('articles')->value('name');
 		
-		/*DB::table('articles')->chunk(2,function($articles) {
+		//$articles = Article::all();
+		
+		$articles = Article::where('id', '>', 3)->orderBy('name')->take(2)->get();
+		
+		/*Article::chunk(2, function($articles) {
 			
-			foreach($articles as $article) {
-				Core::addArticles($article);
-			}
 			
-		});
+		});*/
 		
-		dump(self::$articles);*/
+		//$article = Article::find(1);
 		
-		//$articles = DB::table('articles')->pluck('name');
-		//$articles = DB::table('articles')->count();
-		//$articles = DB::table('articles')->max('id');
+		//$article = Article::where('id',1)->first();
+		
+		//$articles = Article::find([1,2,3]);
+		
+		//$article = Article::findOrFail(100);
+		//$article = Article::where('id',100)->firstOrFail();
 		
 		
-		//$articles = DB::table('articles')->select('name','id','text')->get();
-		//$articles = DB::table('articles')->distinct()->select('name')->get();
+		/*$article = new Article;
+		
+		$article->name = 'New Article';
+		$article->text = 'New Text';*/
+		
+		$article = Article::find(24);
+		
+		$article->name = 'New Name 2';
+		$article->text = 'New Text 2';
+		
+		$article->save();
 		
 		
-		///$query = DB::table('articles')->select('name');
-		////
+		//$article->name = 'New Article';
+		//$article->text = 'New Text';
 		
-		////
+		//$article->save();
 		
-		///WHERE
-		//$articles = $query->addSelect('text AS fulltext')->get();
 		
-		//WHERE id = 5
-	/*$articles = DB::table('articles')->select('name','text AS fulltext')
-													->where('id','>',5)
-													->where('name','like','test%','or')
-													->orWhere('id','<',2)
-													->get();*/
-													
-		//where id between 1 and 5											
-		/*$articles = DB::table('articles')->whereNotBetween('id',[1,5])->get();*/
+		/*foreach($articles as $article) {
+			echo $article->text.'<br />';
+		}*/
+		//echo $article->text;
 		
-		//$articles = DB::table('articles')->whereNotIn('id',[1,2,3,5])->get();
+		$articles = Article::all();
 		
-		//$articles = DB::table('articles')->groupBy('name')->get();
-		
-		//limit
-		//$articles = DB::table('articles')->take(4)->skip(2)->get();
-		
-		// INSERT INTO
-		/*DB::table('articles')->insert(
-										
-										[
-										    ['name' => 'Test2', 'text' => 'hello'],
-										    ['name' => 'Test3', 'text' => 'hello world'],
-										    ['name' => 'Test2', 'text' => 'hello'],
-										    ['name' => 'Test3', 'text' => 'hello world'],
-										    ['name' => 'Test2', 'text' => 'hello'],
-										    ['name' => 'Test3', 'text' => 'hello world']
-										]
-										
-										);*/
-		
-		//$result = DB::table('articles')->insertGetId(['name' => 'Test2', 'text' => 'hello']);								
-		
-		//dump($result);
-		
-		// where id = 22
-		//$result = DB::table('articles')->where('id',22)->update(['name'=>'Hello world1']);
-		
-		$result = DB::table('articles')->where('id',22)->delete();
-		
-		//
-/*		LEFT JOIN 'articles' ON user.id = articles.id
-		$users = DB::table('users')
-            ->leftJoin('articles', 'user.id', '=', 'articles.id')
-            ->select()
-            ->get();
-		*/
-		
-		DB::table('articles')->decrement('name', 5);
-		//dump($result);
-		$articles = DB::table('articles')->get();
 		dump($articles);
+		
+		return ;
 		
 	}
 	
