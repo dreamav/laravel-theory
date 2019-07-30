@@ -54,10 +54,30 @@ class Article extends Model
 	
 	protected $dates = ['deleted_at'];
 	
+	protected $casts = [
+		
+		'name' => 'boolean',
+		'text' => 'array'
+		
+	];
+	
 	
 	
 	public function user() {
 		return $this->belongsTo('App\User');
-	}	
+	}
+	
+	
+	/*public function getNameAttribute($value) {
+		
+		return 'hello world - '.$value.' - Hello world';
+	}
+	
+	public function setNameAttribute($value) {
+		
+		//kod
+		
+		$this->attributes['name'] = ' | '.$value.' | ';
+	}*/
     
 }

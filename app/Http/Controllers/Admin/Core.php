@@ -30,91 +30,46 @@ class Core extends Controller
     //list materials
     public function getArticles(Request $request) {
 		
-		//$user = User::find(1);
+		
+		/*$country = Country::find(1);
+		$user = User::find(2);
+		
+		$country->user()->associate($user);
+		$country->save();*/
+		
+		/*$articles = Article::all();
+		$user = User::find(2);
+		
+		foreach($articles as $article) {
+			$article->user()->associate($user);
+			$article->save();
+		}*/
 		
 		
-		//$country = Country::find(1);
+		/*$user = User::find(2);
+		$role_id = Role::find(2)->id;
 		
-		///$article = Article::all();
-		//$country = $user->country;
+		//$user->roles()->attach($role_id);
+		$user->roles()->detach($role_id);
+		*/
 		
-		
-		///$articles = $user->articles()->where('id','>',24)->get();
 		
 		//$article = Article::find(24);
 		
-		/*foreach($articles as $article) {
-			echo $article->name.'<br>';
-		}*/
+		//$article->name = 'Some text';
 		
-		//$user = User::find(1);
+		//echo $article->name;
 		
+		$article = Article::find(24);
 		
-		//$role = $user->roles()->where('roles.id',2)->first();
+		//$arr = ['key'=>'hello world'];
 		
-		//$role = Role::find(1);
+		//$article->text = $arr;
 		
-		//dump($role->users);
+		//$article->save();
 		
-		/*foreach($user->roles as $role) {
-			echo $role->name.'<br />';
-		}*/
+		dump((string)$article);
 		
-		//$articles = Article::all();
-		
-		///$users = User::with('articles','roles')->get();
-		
-		
-		//$users = User::has('articles','>=','3')->get();
-		
-		//kod
-		
-		//kod
-		
-		//User
-		//$articles = Article::with('user')->get();
-		
-		//$articles->load('user');
-		
-		/*foreach($users as $user) {
-			dump($user);
-		}*/
-		
-		//dump($articles);
-		
-		
-		$user = User::find(1);
-		
-		/*$article = new Article([
-								
-								'name' => 'New Article',
-								'text' => 'Some text'
-								
-								]);*/
-		
-		$user->articles()->where('id',24)->update(['name'=>'NEW TEXT2222222']);
-		
-		/*$role = new Role(['name'=>'quest']);
-		$user->roles()->save($role);*/
-		
-		/*$user->articles()->saveMany([
-									
-									new Article(['name' => 'New Article1', 'text' => 'Some text1']),
-									new Article(['name' => 'New Article2', 'text' => 'Some text2']),
-									new Article(['name' => 'New Article3', 'text' => 'Some text3']),
-									
-									]);*/
-		
-		/*$user->articles()->create([
-								
-								'name' => 'New Article1',
-								'text' => 'Some text1'
-								
-								]);*/
-		
-		
-		$articles = Article::find(24);
-		dump($articles);
 		
 		return ;
 		
